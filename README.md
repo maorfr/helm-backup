@@ -13,7 +13,7 @@ $ helm backup [flags] NAMESPACE
 restore releases from file to namespace
 
 ```
-$ helm backup --restore [flags] NAMESPACE
+$ helm backup [flags] NAMESPACE --restore
 ```
 
 ### Flags:
