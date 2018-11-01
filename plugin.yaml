@@ -1,0 +1,8 @@
+name: "backup"
+# Version is the version of Helm plus the number of official builds for this plugin
+version: "2.11.0+1"
+usage: "backup [flags] RELEASE_NAME"
+description: "backup/restore releases in a namespace to/from a file"
+command: "$HELM_PLUGIN_DIR/backup"
+hooks:
+  install: "$HELM_PLUGIN_DIR/install-binary.sh"

@@ -1,0 +1,6 @@
+_scratch
+backup
+backup.exe
+*.tgz
+vendor/
+_dist/
