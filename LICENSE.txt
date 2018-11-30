@@ -1,5 +1,5 @@
 Helm Backup Plugin
-Copyright (C) 2016, Matt Butcher
+Copyright (C) 2018, Maor Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
