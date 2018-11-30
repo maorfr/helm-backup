@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -57,15 +56,15 @@ func run(cmd *cobra.Command, args []string) error {
 
 // Backup performs a backup of all releases from provided namespace
 func Backup(namespace string) error {
-	log.Println("getting Tiller storage")
+	log.Println("getting tiller storage")
 	storage := utils.GetTillerStorage(tillerNamespace)
-	log.Printf("found Tiller storage: %s", storage)
-	log.Printf("getting releases in namespace %s", namespace)
+	log.Printf("found tiller storage: \"%s\"", storage)
+	log.Printf("getting releases in namespace \"%s\"", namespace)
 	inReleases, err := utils.ListReleaseNamesInNamespace(namespace)
 	if err != nil {
 		return err
 	}
-	log.Printf("found relases: %s", inReleases)
+	log.Printf("found relases: %s", prettyPrint(inReleases))
 	backupCmd := []string{
 		"kubectl",
 		"--namespace", tillerNamespace,
@@ -97,7 +96,7 @@ func Backup(namespace string) error {
 	}
 	os.Remove(manifestsFileName)
 	os.Remove(releasesFileName)
-	fmt.Printf("backup of namespace \"%s\" to file %s complete (found releases: %s)\n", namespace, tarGzName, strings.Replace(inReleases, ",", ", ", -1))
+	log.Printf("backup of namespace \"%s\" to file %s complete (found releases: %s)\n", namespace, tarGzName, prettyPrint(inReleases))
 	return nil
 }
 
@@ -108,9 +107,11 @@ func Restore(namespace string) error {
 	releasesFileName := untarDir + "/releases"
 	os.RemoveAll(untarDir)
 	tarGzName := getTarGzFileName(namespace)
+	log.Printf("extracting backup from file %s", tarGzName)
 	if err := archiver.TarGz.Open(tarGzName, untarDir); err != nil {
 		return err
 	}
+	log.Println("reading backup data")
 	releasesToRestore, err := ioutil.ReadFile(releasesFileName)
 	if err != nil {
 		return err
@@ -120,16 +121,18 @@ func Restore(namespace string) error {
 		"--namespace", tillerNamespace,
 		"apply", "-f", manifestsFileName,
 	}
+	log.Println("applying backup data to tiller")
 	output := utils.Execute(restoreCmd)
-	fmt.Print((string)(output))
+	log.Print((string)(output))
 
 	label += ",STATUS=DEPLOYED"
 	for _, r := range strings.Split((string)(releasesToRestore), ",") {
+		log.Printf("restoring release \"%s\"", r)
 		helm_restore.Restore(r, tillerNamespace, label)
 	}
 
 	os.RemoveAll(untarDir)
-	fmt.Printf("restore file %s to namespace \"%s\" complete (found releases: %s)\n", tarGzName, namespace, strings.Replace((string)(releasesToRestore), ",", ", ", -1))
+	log.Printf("restore file %s to namespace \"%s\" complete (found releases: %s)\n", tarGzName, namespace, prettyPrint(releasesToRestore))
 	return nil
 }
 
@@ -143,4 +146,8 @@ func getTarGzFileName(namespace string) string {
 	}
 
 	return tarGzName
+}
+
+func prettyPrint(in string) string {
+	return strings.Replace(in, ",", ", ", -1)
 }
