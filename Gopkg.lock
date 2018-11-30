@@ -47,14 +47,15 @@
   revision = "cc9eb1d7ad760af14e8f918698f745e80377af4f"
 
 [[projects]]
-  digest = "1:f83d740263b44fdeef3e1bce6147b5d7283fcad1a693d39639be33993ecf3db1"
+  digest = "1:b7a8552c62868d867795b63eaf4f45d3e92d36db82b428e680b9c95a8c33e5b1"
   name = "github.com/gogo/protobuf"
   packages = [
     "proto",
     "sortkeys",
   ]
   pruneopts = "UT"
-  revision = "c0656edd0d9eab7c66d1eb0c568f9039345796f7"
+  revision = "342cbe0a04158f6dcb03ca0079991a51a4248c02"
+  version = "v0.5"
 
 [[projects]]
   digest = "1:2edd2416f89b4e841df0e4a78802ce14d2bc7ad79eba1a45986e39f0f8cb7d87"
@@ -161,19 +162,19 @@
   version = "1.1.4"
 
 [[projects]]
-  digest = "1:ec6f586e34d38ffb17cba1017ecf1409b0fe445e390fd0e9120a5d14b1381b2c"
+  digest = "1:03b374b87964cc53931a94915a2aa33ed1a175c569db4a79319b1c07f937bc5d"
   name = "github.com/maorfr/helm-plugin-utils"
   packages = ["pkg"]
   pruneopts = "UT"
-  revision = "f913b718a67df562b370bb6fdaad902430446f33"
-  version = "0.1.0"
+  revision = "a7645cd50ca08403f6e98bb47957a8afc3e2cb87"
+  version = "0.1.1"
 
 [[projects]]
-  digest = "1:64c098f1dd88b2ee3812bd4095788caa93347d0a12d1af2c8c9a198e9c86fba0"
+  digest = "1:60ec0a2330be03869b34ee7550dc5a8c54e83fe9115fa861bc9cd99874ce1bfb"
   name = "github.com/maorfr/helm-restore"
   packages = ["pkg"]
   pruneopts = "UT"
-  revision = "c168fdd9ff440eb72178aa47b1d7ca09ab103e77"
+  revision = "62cea632beccaf8e0c842fd9c12fce94f6717180"
   version = "0.1.0"
 
 [[projects]]
@@ -272,17 +273,18 @@
   revision = "de0752318171da717af4ce24d0a2e8626afaeb11"
 
 [[projects]]
-  digest = "1:7f8cf4434657e2b21067f70930402b43144b6ff94022171be5cfcb5924c7f27c"
+  branch = "master"
+  digest = "1:d20c0450b79b50c703314165ef6b7a5bb5de64e9b7eef5d1c47f6a0ab3a3fd01"
   name = "golang.org/x/net"
   packages = [
     "context",
+    "http/httpguts",
     "http2",
     "http2/hpack",
     "idna",
-    "lex/httplex",
   ]
   pruneopts = "UT"
-  revision = "1c05540f6879653db88113bc4a2b70aec4bd491f"
+  revision = "fae4c4e3ad76c295c3d6d259f898136b4bf833a8"
 
 [[projects]]
   digest = "1:ad764db92ed977f803ff0f59a7a957bf65cc4e8ae9dfd08228e1f54ea40392e0"
