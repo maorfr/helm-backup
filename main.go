@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
 
@@ -56,11 +57,15 @@ func run(cmd *cobra.Command, args []string) error {
 
 // Backup performs a backup of all releases from provided namespace
 func Backup(namespace string) error {
+	log.Println("getting Tiller storage")
 	storage := utils.GetTillerStorage(tillerNamespace)
+	log.Printf("found Tiller storage: %s", storage)
+	log.Printf("getting releases in namespace %s", namespace)
 	inReleases, err := utils.ListReleaseNamesInNamespace(namespace)
 	if err != nil {
 		return err
 	}
+	log.Printf("found relases: %s", inReleases)
 	backupCmd := []string{
 		"kubectl",
 		"--namespace", tillerNamespace,
@@ -69,7 +74,9 @@ func Backup(namespace string) error {
 		"-l", "NAME in (" + inReleases + ")",
 		"-o", "yaml",
 	}
+	log.Println("getting backup data")
 	output := utils.Execute(backupCmd)
+	log.Println("successfully got backup data")
 
 	manifestsFileName := "manifests.yaml"
 	releasesFileName := "releases"
@@ -77,6 +84,7 @@ func Backup(namespace string) error {
 	os.Remove(manifestsFileName)
 	os.Remove(releasesFileName)
 	os.Remove(tarGzName)
+	log.Printf("writing backup to file %s", tarGzName)
 	if err := ioutil.WriteFile(manifestsFileName, output, 0644); err != nil {
 		return err
 	}
