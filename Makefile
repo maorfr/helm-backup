@@ -1,6 +1,6 @@
 HELM_HOME ?= $(shell helm home)
 HELM_PLUGIN_DIR ?= $(HELM_HOME)/plugins/helm-backup
-HELM_PLUGIN_NAME := "backup"
+HELM_PLUGIN_NAME := backup
 HAS_DEP := $(shell command -v dep;)
 DEP_VERSION := v0.5.0
 VERSION := $(shell sed -n -e 's/version:[ "]*\([^"]*\).*/\1/p' plugin.yaml)
