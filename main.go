@@ -58,7 +58,7 @@ func run(cmd *cobra.Command, args []string) error {
 func Backup(namespace string) error {
 	log.Println("getting tiller storage")
 	storage := utils.GetTillerStorage(tillerNamespace)
-	log.Printf("found tiller storage: \"%s\"", storage)
+	log.Printf("found tiller storage: %s", storage)
 	log.Printf("getting releases in namespace \"%s\"", namespace)
 	inReleases, err := utils.ListReleaseNamesInNamespace(namespace)
 	if err != nil {
@@ -112,7 +112,7 @@ func Restore(namespace string) error {
 		return err
 	}
 	log.Println("reading backup data")
-	releasesToRestore, err := ioutil.ReadFile(releasesFileName)
+	releases, err := ioutil.ReadFile(releasesFileName)
 	if err != nil {
 		return err
 	}
@@ -121,8 +121,10 @@ func Restore(namespace string) error {
 		"--namespace", tillerNamespace,
 		"apply", "-f", manifestsFileName,
 	}
-	log.Println("applying backup data to tiller")
-	output := utils.Execute(restoreCmd)
+	releasesToRestore := (string)(releases)
+	log.Printf("releases found to restore: %s", prettyPrint(releasesToRestore))
+	log.Println("applying backup data to tiller (this command will fail if releases exist)")
+	output := utils.ExecuteCombined(restoreCmd)
 	log.Print((string)(output))
 
 	label += ",STATUS=DEPLOYED"
@@ -132,7 +134,7 @@ func Restore(namespace string) error {
 	}
 
 	os.RemoveAll(untarDir)
-	log.Printf("restore file %s to namespace \"%s\" complete (found releases: %s)\n", tarGzName, namespace, prettyPrint(releasesToRestore))
+	log.Printf("restore file %s to namespace \"%s\" complete", tarGzName, namespace)
 	return nil
 }
 
