@@ -60,7 +60,10 @@ func Backup(namespace string) error {
 	storage := utils.GetTillerStorage(tillerNamespace)
 	log.Printf("found tiller storage: %s", storage)
 	log.Printf("getting releases in namespace \"%s\"", namespace)
-	inReleases, err := utils.ListReleaseNamesInNamespace(namespace)
+	inReleases, err := utils.ListReleaseNamesInNamespace(utils.ListReleaseNamesInNamespaceOptions{
+		Namespace:       namespace,
+		TillerNamespace: tillerNamespace,
+	})
 	if err != nil {
 		return err
 	}

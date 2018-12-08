@@ -162,12 +162,12 @@
   version = "1.1.4"
 
 [[projects]]
-  digest = "1:03b374b87964cc53931a94915a2aa33ed1a175c569db4a79319b1c07f937bc5d"
+  digest = "1:63a42083db9a2d49ca74cc94a9506e0b9163242ecf07e7dadad6a1b115c96470"
   name = "github.com/maorfr/helm-plugin-utils"
   packages = ["pkg"]
   pruneopts = "UT"
-  revision = "a7645cd50ca08403f6e98bb47957a8afc3e2cb87"
-  version = "0.1.1"
+  revision = "588190cb5e3b7a83ff958dcd55e4990429b4845a"
+  version = "0.1.2"
 
 [[projects]]
   digest = "1:60ec0a2330be03869b34ee7550dc5a8c54e83fe9115fa861bc9cd99874ce1bfb"
