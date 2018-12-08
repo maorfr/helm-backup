@@ -1,6 +1,8 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -25,7 +27,15 @@ func main() {
 	cmd := &cobra.Command{
 		Use:   "backup [flags] NAMESPACE",
 		Short: "backup/restore releases in a namespace to/from a file",
-		RunE:  run,
+		Args: func(cmd *cobra.Command, args []string) error {
+			if len(args) != 1 {
+				return errors.New("namespace to backup has to be defined")
+			}
+			return nil
+		},
+
+		RunE:         run,
+		SilenceUsage: true,
 	}
 
 	f := cmd.Flags()
@@ -67,6 +77,9 @@ func Backup(namespace string) error {
 	if err != nil {
 		return err
 	}
+	if len(inReleases) == 0 {
+		return fmt.Errorf("no releases found in namespace \"%s\"", namespace)
+	}
 	log.Printf("found relases: %s", prettyPrint(inReleases))
 	backupCmd := []string{
 		"kubectl",
@@ -99,7 +112,7 @@ func Backup(namespace string) error {
 	}
 	os.Remove(manifestsFileName)
 	os.Remove(releasesFileName)
-	log.Printf("backup of namespace \"%s\" to file %s complete (found releases: %s)\n", namespace, tarGzName, prettyPrint(inReleases))
+	log.Printf("backup of namespace \"%s\" to file %s complete\n", namespace, tarGzName)
 	return nil
 }
 
