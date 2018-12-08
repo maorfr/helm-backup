@@ -34,8 +34,7 @@ func main() {
 			return nil
 		},
 
-		RunE:         run,
-		SilenceUsage: true,
+		RunE: run,
 	}
 
 	f := cmd.Flags()
