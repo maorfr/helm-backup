@@ -50,7 +50,7 @@ for that.
 ```
 $ cd $GOPATH/src/github.com/maorfr/helm-backup
 $ make bootstrap build
-$ SKIP_BIN_INSTALL=1 helm plugin install $GOPATH/src/github.com/maorfr/helm-backup
+$ HELM_PUSH_PLUGIN_NO_INSTALL_HOOK=1 helm plugin install $GOPATH/src/github.com/maorfr/helm-backup
 ```
 
 That last command will skip fetching the binary install and use the one you
