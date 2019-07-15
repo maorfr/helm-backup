@@ -38,7 +38,7 @@ func main() {
 	}
 
 	f := cmd.Flags()
-	f.StringVar(&tillerNamespace, "tiller-namespace", "kube-system", "namespace of Tiller")
+	f.StringVarP(&tillerNamespace, "tiller-ns","t", "kube-system", "namespace of Tiller")
 	f.StringVarP(&label, "label", "l", "OWNER=TILLER", "label to select tiller resources by")
 	f.StringVar(&file, "file", "", "file name to use (.tgz file). If not provided - will use <namespace>.tgz")
 	f.BoolVarP(&restore, "restore", "r", false, "restore instead of backup")
