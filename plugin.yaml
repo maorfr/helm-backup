@@ -1,5 +1,5 @@
 name: "backup"
-version: "0.1.1"
+version: "0.1.2"
 usage: "backup/restore releases in a namespace to/from a file"
 description: "backup/restore releases in a namespace to/from a file"
 command: "$HELM_PLUGIN_DIR/bin/backup"
