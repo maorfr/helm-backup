@@ -134,7 +134,7 @@ func Restore(namespace string) error {
 	restoreCmd := []string{
 		"kubectl",
 		"--namespace", tillerNamespace,
-		"apply", "-f", manifestsFileName,
+		"create", "-f", manifestsFileName,
 	}
 	releasesToRestore := (string)(releases)
 	log.Printf("releases found to restore: %s", prettyPrint(releasesToRestore))
