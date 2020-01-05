@@ -8,7 +8,7 @@ if [ -n "${HELM_PUSH_PLUGIN_NO_INSTALL_HOOK}" ]; then
     exit 0
 fi
 
-version="$(curl -s https://api.github.com/repos/maorfr/helm-backup/releases/latest | awk '/\"tag_name\":/{gsub( /[,\"]/,"", $2); print $2}')"
+version="$(curl -s https://api.github.com/repos/maorfr/helm-backup/releases/latest | awk -F '"' '/tag_name/ {print $4}')"
 echo "Downloading and installing helm-backup ${version} ..."
 
 url=""
