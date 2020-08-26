@@ -19,10 +19,12 @@ $ helm backup [flags] NAMESPACE --restore
 ### Flags:
 
 ```
-      --file string               file name to use (.tgz file). If not provided - will use <namespace>.tgz
-  -l, --label string              label to select tiller resources by (default "OWNER=TILLER")
-  -r, --restore                   restore instead of backup
-      --tiller-namespace string   namespace of Tiller (default "kube-system") 
+      --file string        file name to use (.tgz file). If not provided - will use <namespace>.tgz
+  -h, --help               help for backup
+  -l, --label string       label to select tiller resources by (default "OWNER=TILLER")
+  -r, --restore            restore instead of backup
+  -t, --tiller-ns string   namespace of Tiller (default "kube-system")
+
 ```
 
 ## Install
